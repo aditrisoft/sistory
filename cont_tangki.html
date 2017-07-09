@@ -1,0 +1,210 @@
+<style>
+  th{
+    text-align:center;
+  }
+  .list-gambar{
+    max-height: 100px;   
+    float: left;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    cursor: default; 
+  }
+  .box-formy{
+/*    margin-top:10px;
+    margin-bottom:10px; */
+    box-shadow: 4px 4px 2px #888888;
+  }
+  .box-formy select{
+    border:none;
+    border-bottom:2px solid #019587;
+
+  }
+        .dropzone {
+        margin:20px;
+        float:left;
+        border-right: 1px solid lightgray;
+        width: 200px;
+        height: 200px;
+        overflow: hidden
+        }   
+
+        /* klo melewati batas jumlah upload */
+        .dz-max-files-reached {
+        background-color: red;
+        };
+       
+</style>
+
+<link href="css/adi-formy.css" rel="stylesheet">
+<link href="css/adi-modal.css" rel="stylesheet">
+<section class="wrapper">
+<!-- page start-->
+  <div ng-cloak ng-controller="tangkiCtrl" id="tangkiCtrl">
+
+    <div class="row">
+      <div class="col-lg-2">
+        <button type="submit" class="btn btn-primary" href="#myModal" data-toggle="modal" ng-click="bersihData()"><i class="fa fa-plus-circle" aria-hidden="true"></i> &nbsp;Tambah</button>
+      </div>                    
+      <div class="col-lg-2"> </div>
+      <div class="col-lg-2"></div>
+      <div class="col-lg-2"></div>
+      <div class="col-lg-2"></div>
+      <div class="col-lg-2">        
+        <span style="font-weight:bold;color:#AF0004;float:right">{{total_pencarian}}</span>
+        <!--button type="submit" href="#frmFoto" data-toggle="modal" class="btn btn-success">Tes Foto</button-->
+      </div>  
+    </div>
+
+    
+ 
+
+    <div class="row"><br></div>
+    <section class="panel-success"> 
+      <header class="panel-heading">
+        <div class="row">
+          <div class="col-lg-9"><b><i class="icon_book_alt"></i> Master Data Tangki</b></div>
+          <div class="col-lg-3">                        
+            <input class="form-control" id="txtfilter" ng-model="txtcari" placeholder="Pencarian ...." type="text" ng-keydown="$event.which === 13 && tampilCari()">
+          </div><!-- event tekan tombol enter -->
+        </div>
+      </header>
+
+      <div class="tabelx table-responsive" style="height:60vh;overflow:auto;" onscroll="loadlagi()">    
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>Kode Tangki</th>
+          <th>Nama Tangki</th>
+          <th>Produk BBM</th>
+          <th>Deskripsi</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="x in isi">
+            <td><b>{{x.idtangki}}</b></td>
+            <td>{{x.tangki}}</td>
+            <td>{{x.produk_nama}}</td>
+            <td>{{x.deskripsi}}</td>
+            <td>
+              <button class="btn btn-xs btn-success" ng-click="detailData(x.idtangki)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>          
+              <button class="btn btn-xs btn-danger" ng-click="hapusData(x.idtangki)"><i class="icon_trash_alt"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div data-ng-show="animation_image" align="center"><img src="loading.gif"  width="5%" style="position:fixed;z-index:99;top:45vh;margin:auto"></div>
+      </div>  
+    </section>
+
+
+
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content"  style="background:white">
+          <div class="modal-header-adi">
+            <button type="button" class="close" data-dismiss="modal"><span class="icon-close"></span></button>
+            <h4 class="modal-title">Master Tangki</h4>
+          </div>
+          <div class="modal-body">
+            <form class="adi-formy go-bottom">
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm-3">
+                    <input id="txtidtangki" name="txtidtangki" ng-model="txtidtangki" type="text" ng-disabled="dskode" enter autofocus required>
+                    <label for="txtidtangki">Kode Tangki</label>
+                  </div>
+                  <div class="col-sm-9">
+                    <input id="txttangki" name="txttangki" ng-model="txttangki" type="text" enter required>
+                    <label for="txttangki">Nama Tangki</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <input id="txtdeskripsi" name="txtdeskripsi" ng-model="txtdeskripsi" type="text" enter>
+                    <label for="txtdeskripsi">Deskripsi</label>
+                  </div>
+                </div>  
+                <br>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <input id="txtproduk_id" name="txtproduk_id" ng-model="txtproduk_id" type="text" disabled>
+                    <label for="txtproduk_id">Kode Produk</label>
+                  </div>                
+                  <div class="col-sm-7">
+                    <input id="txtproduk_nama" name="txtproduk_nama" ng-model="txtproduk_nama" type="text" disabled>
+                    <label for="txtproduk_nama">Nama Produk</label>
+                  </div>
+                  <div class="col-sm-2 text-right">
+                    <button class="btn btn-info" href="#listProduk" data-toggle="modal"><i class="fa fa-search" aria-hidden="true"></i></button> 
+                  </div>
+                </div>                              
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" data-ng-show="TmbUpdate" class="btn btn-success" ng-click="updateData()"  style="float:left;">Update</button>
+            <button type="button" data-ng-show="TmbSimpan" class="btn btn-success" ng-click="SimpanData()"  style="float:left;">Simpan</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+ <!-- Modal List Pencarian -->
+  <div class="modal fade" id="listProduk" role="dialog">
+    <div class="modal-dialog modal-lg" style="width:90%;height:100vh;">
+
+    <!-- Modal content-->
+    <div class="modal-content"  style="background:white">
+      <div class="modal-header-adi">
+          <button type="button" class="close" data-dismiss="modal"><span class="icon-close"></span></button>
+        <h4 class="modal-title">Daftar Produk BBM</h4>
+      </div>
+      <div class="modal-body">
+          <header class="panel-heading">
+            <div class="row">
+              <div class="col-lg-3"><b>DAFTAR PRODUK BBM</b></div>
+              <div class="col-lg-3"></div>
+              <div class="col-lg-3"> </div>          
+              <div class="col-lg-3">                        
+                <input class="form-control" ng-model="txtcariproduk" placeholder="Filter Pencarian ...." type="text" ng-keydown="$event.which === 13 && tampilListProduk()"><!-- event tekan tombol enter -->
+              </div>
+      </div>      
+          </header>    
+          <div class="tabelx table-responsive" style="height:55vh;overflow:auto;" onscroll="loadlagi()">
+            <table class="table table-striped table-bordered table-hover">
+              <span style="font-weight:bold;color:#AF0004;float:right">{{total_pencarian_produk}}</span>
+              <thead>
+                <tr>
+                  <th>Kode Produk</th>
+                  <th>Nama Produk</th>
+                  <th>Harga Jual</th>
+                </tr>
+              </thead>
+              <tbody> 
+                <tr ng-repeat="rm in lscariproduk" ng-click="ambilListCariProduk(rm.produk_id);" data-dismiss="modal">
+                  <td><b>{{rm.produk_id}}</b></td>
+                  <td>{{rm.produk_nama}}</td>  
+                  <td>{{rm.harga_jual}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div data-ng-show="animation_image" align="center"><img src="loading5.gif"  width="30%"></div>
+          </div>      
+      </div>
+      <div class="modal-footer">   
+        <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+      </div>
+    </div>
+
+    </div>
+  </div>
+
+
+
+  </div>
+</section>

@@ -1,0 +1,22 @@
+table {
+
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+
+  width: 100%;
+}
+table tr {
+
+}
+table th,
+table td {
+  color:black;
+  font-size:.6em;
+  padding: .45em;
+
+  border: 1px solid black;  
+}
+.warna{
+  color:black;
+}

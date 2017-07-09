@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="TriSoft">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="img/favicon.png">
+
+    <title>SISTORY - Panel</title>
+    <!-- Bootstrap CSS -->    
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- bootstrap theme -->
+    <link href="css/bootstrap-theme.css" rel="stylesheet">
+    <!--external css-->
+    <!-- font icon -->
+    <link href="css/elegant-icons-style.css" rel="stylesheet" />
+    <link href="css/font-awesome.css" rel="stylesheet" />    
+
+    <!-- Custom styles -->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/style-responsive.css" rel="stylesheet" />
+    <link href="css/jquery-ui-1.10.4.min.css" rel="stylesheet">
+
+    <style>
+      td{
+        font-size:0.85em;
+      }
+    </style>
+  </head>
+<script>
+//cek udah login belum
+  if(localStorage.getItem('usernama')==null){
+    window.location="login.html";
+  }
+  function logout(){
+    localStorage.removeItem('usernama');
+    localStorage.removeItem('bagian');
+    window.location="login.html";
+  }
+</script>
+  <body ng-app="myApp">
+
+    <!--*HEADER start-->
+      <header class="header paidi-bg"> <!-- style.css - f: dark-bg-->
+            <div class="toggle-nav">
+                <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"><i class="icon_menu"></i></div>             
+            </div>
+
+            <!--logo start-->
+            <a href="#" class="logo">SISPBU <span class="lite">Panel</span></a>
+            <!--logo end-->
+
+            <div class="nav search-row" id="top_menu">
+                <!--  search form start -->
+                <ul class="nav top-menu">                    
+                    <li>
+                        <!--form class="navbar-form">
+                            <input class="form-control" placeholder="Pencarian ..." type="text">
+                        </form-->
+                    </li>                    
+                </ul>
+                <!--  search form end -->                
+            </div>
+
+
+      </header>      
+      <!--header end-->
+
+
+
+      <!--*SIDEBAR start-->
+      <aside>
+          <div id="sidebar"  class="nav-collapse ">
+              <!-- sidebar menu start-->
+              <ul class="sidebar-menu">                
+                  <li class="active">
+                      <a class="" href="#/">
+                          <i class="icon_house_alt"></i>
+                          <span>Beranda</span>
+                      </a>
+                  </li>
+
+                  <!-- USER BACKOFFICE -->
+                  <li class="user_backoffice sub-menu">
+                      <a href="javascript:;" class="">
+                          <i class="icon_table"></i>
+                          <span>Produk</span>
+                          <span class="menu-arrow arrow_carrot-right"></span>
+                      </a>
+                      <ul class="sub">
+                          <li><a class="" href="#produk">Data Produk</a></li>
+                          <li><a class="" href="#lab07">Lihat Stok</a></li>
+                          <li><a class="" href="#pystok">Penyesuaian Stok</a></li>
+                      </ul>
+                  </li>       
+                  <li class="user_backoffice sub-menu">
+                      <a href="javascript:;" class="">
+                          <i class="icon_book_alt"></i>
+                          <span>Pembelian</span>
+                          <span class="menu-arrow arrow_carrot-right"></span>
+                      </a>
+                      <ul class="sub">
+                          <li><a class="" href="#suplier">Suplier</a></li>
+                          <li><a class="" href="#po">Buat PO</a></li>
+                          <li><a class="" href="#vpo">Validasi PO</a></li>
+                          <li><a class="" href="#do">Penerimaan DO</a></li>
+                          <li><a class="" href="#hutang">Hutang</a></li>
+                          <li><a class="" href="#lab01">Rekap Pembelian</a></li>
+                          <li><a class="" href="#lab02">Detail Pembelian</a></li>
+                          <li><a class="" href="#lab03">Pembelian Per Produk</a></li>
+                      </ul>
+                  </li> 
+                  <li class="user_backoffice sub-menu">
+                      <a href="javascript:;" class="">
+                          <i class="icon_book_alt"></i>
+                          <span>Penjualan</span>
+                          <span class="menu-arrow arrow_carrot-right"></span>
+                      </a>
+                      <ul class="sub">
+                          <li><a class="" href="#pelanggan">Agen/ Konsumen</a></li>
+                          <!--li><a class="" href="">Sales Order</a></li-->
+                          <li><a class="" href="#pj">Transaksi Grosir</a></li>
+                          <li><a class="" href="#transaksi_bbm">Transaksi Retail</a></li>                          
+                          <li><a class="" href="#piutang">Piutang</a></li>
+                          <li><a class="" href="#lab04">Rekap Penjualan</a></li>
+                          <li><a class="" href="#lab05">Rincian Penjualan</a></li>
+                          <li><a class="" href="#lab06">Rekap Per Produk</a></li>
+                      </ul>
+                  </li> 
+                  <li class="user_backoffice sub-menu">
+                      <a href="javascript:;" class="">
+                          <i class="icon_toolbox_alt"></i>
+                          <span>Pemakaian</span>
+                          <span class="menu-arrow arrow_carrot-right"></span>
+                      </a>
+                      <ul class="sub">
+                          <li><a class="" href="#pinternal">Pemakaian Internal</a></li>
+                          <li><a class="" href="#plain">Pemakaian Lain</a></li>
+                      </ul>
+                  </li>
+
+               
+
+                  <!-- end USER BACKOFFICE -->
+
+                  <!-- USER KEUANGAN -->                  
+                  <li class="user_keuangan">
+                      <a class="" href="#noperk">
+                          <i class="icon_table"></i>
+                          <span>COA</span>
+                      </a>
+                  </li>
+                  <li class="user_keuangan">
+                      <a class="" href="#bank">
+                          <i class="icon_table"></i>
+                          <span>Data Bank</span>
+                      </a>
+                  </li>                  
+                  <li class="user_keuangan sub-menu">
+                      <a href="javascript:;" class="">
+                          <i class="icon_desktop"></i>
+                          <span>Transaksi</span>
+                          <span class="menu-arrow arrow_carrot-right"></span>
+                      </a>
+                      <ul class="sub">
+                          <li><a class="" href="#kas">Kas</a></li>
+                          <li><a class="" href="#trbank">Bank</a></li>
+                          <li><a class="" href="#vpo">Validasi PO</a></li>
+                          <li><a class="" href="#jurnal">Jurnal Memorial</a></li>
+                      </ul>
+                  </li>      
+                  <li class="user_keuangan sub-menu">
+                      <a href="javascript:;" class="">
+                          <i class="icon_documents_alt"></i>
+                          <span>Lap. Keuangan</span>
+                          <span class="menu-arrow arrow_carrot-right"></span>
+                      </a>
+                      <ul class="sub">
+                          <li><a class="" href="#lap01">Daftar Jurnal</a></li>
+                          <li><a class="" href="#lap02">Buku Besar</a></li>
+                          <li><a class="" href="#neracaawal">Neraca Awal</a></li>
+                          <li><a class="" href="#neracalajur">Neraca Lajur</a></li>
+                          <li><a class="" href="#neraca">Neraca</a></li>
+                          <li><a class="" href="#labarugi">Laba Rugi</a></li>
+                      </ul>
+                  </li>                    
+                  <!-- end USER KEUANGAN -->  
+                  
+                  <!-- USER MANAGER -->                    
+                  <li class="user_manager">
+                      <a class="" href="#tangki">
+                          <i class="icon_easel_alt"></i>
+                          <span>Tangki</span>
+                      </a>
+                  </li>          
+                  <li class="user_manager">
+                      <a class="" href="#nozzle">
+                          <i class="icon_flowchart_alt"></i>
+                          <span>Nozzle</span>
+                      </a>
+                  </li> 
+                  <li class="user_manager">
+                      <a class="" href="#user">
+                          <i class="icon_group"></i>
+                          <span>User</span>
+                      </a>
+                  </li>  
+                   <li class="user_manager sub-menu">
+                      <a href="javascript:;" class="">
+                          <i class="icon_book"></i>
+                          <span>Lap. Transaksi</span>
+                          <span class="menu-arrow arrow_carrot-right"></span>
+                      </a>
+                      <ul class="sub">
+                          <li><a class="" href="#lapbeli">Pembelian BBM</a></li>
+                          <li><a class="" href="#lapjual">Penjualan BBM</a></li>
+                          <li><a class="" href="#lappakai">Pemakaian BBM</a></li>
+                      </ul>
+                  </li>                   
+                   <li class="user_manager sub-menu">
+                      <a href="javascript:;" class="">
+                          <i class="icon_archive"></i>
+                          <span>Laporan Stok</span>
+                          <span class="menu-arrow arrow_carrot-right"></span>
+                      </a>
+                      <ul class="sub">
+                          <li><a class="" href="#rstok">Rekap Stok</a></li>
+                          <li><a class="" href="#pystok">Penyesuaian Stok</a></li>
+                      </ul>
+                  </li>                   
+                  <li class="user_manager sub-menu">
+                      <a href="javascript:;" class="">
+                          <i class="icon_documents_alt"></i>
+                          <span>Lap. Keuangan</span>
+                          <span class="menu-arrow arrow_carrot-right"></span>
+                      </a>
+                      <ul class="sub">
+                          <li><a class="" href="#djurnal">Daftar Jurnal</a></li>
+                          <li><a class="" href="#bukubesar">Buku Besar</a></li>
+                          <li><a class="" href="#neracaawal">Neraca Awal</a></li>
+                          <li><a class="" href="#neracalajur">Neraca Lajur</a></li>
+                          <li><a class="" href="#neraca">Neraca</a></li>
+                          <li><a class="" href="#labarugi">Laba Rugi</a></li>
+                      </ul>
+                  </li>   
+
+                  <!-- end USER MANAGER -->  
+
+                  <!-- USER MAINTAIN -->  
+                  <li class="user_maintain">
+                      <a class="" href="#pasien">
+                          <i class="icon_document_alt"></i>
+                          <span>Arsip</span>
+                      </a>
+                  </li>
+                  <!-- end USER MAINTAIN -->  
+
+                  <li>
+                      <a class="" onclick="logout()">
+                          <i class="icon_key_alt"></i>
+                          <span>Logout</span>
+                      </a>
+                  </li>                   
+              </ul>
+              <!-- sidebar menu end-->
+          </div>
+      </aside>
+      <!--sidebar end-->
+
+
+
+      <!--main content start-->
+      <section id="main-content">
+        <div ng-view></div>
+      </section>
+      <!--main content end-->
+
+
+    <!-- javascripts -->
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery-ui-1.10.4.min.js"></script>
+<script src="js/angular.min.js"></script>
+<script src="js/angular-route.js"></script>
+<script src='js/angular-locale_id-id.js'></script>
+    <script type="text/javascript" src="js/jquery-ui-1.9.2.custom.min.js"></script>
+    <!-- bootstrap -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- date bootstrap -->
+    <script src="js/bootstrap-datepicker.js"></script>
+    <!-- nice scroll -->
+    <script src="js/jquery.scrollTo.min.js"></script>
+    <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
+    <!--script for this page only-->
+    <script src="js/calendar-custom.js"></script>
+    <script src="js/jquery.rateit.min.js"></script>
+    <!--custome script for all page-->
+    <script src="js/scripts.js"></script>
+
+    <script>
+      var adiapp = angular.module("myApp", ["ngRoute"]);
+      adiapp.config(function($routeProvider) {
+          $routeProvider
+          .when("/", {
+              templateUrl : "cont_home.html",
+          })
+          .when("/noperk", {
+              templateUrl : "cont_noperk.html",
+              controller : "noperkCtrl"
+          })  
+          .when("/kas", {
+              templateUrl : "cont_kas.html",
+              controller : "kasCtrl"
+          })            
+          .when("/suplier", {
+              templateUrl : "cont_suplier.html",
+              controller : "suplierCtrl"
+          })      
+          .when("/pelanggan", {
+              templateUrl : "cont_pelanggan.html",
+              controller : "pelangganCtrl"
+          }) 
+          .when("/nozzle", {
+              templateUrl : "cont_nozzle.html",
+              controller : "nozzleCtrl"
+          }) 
+          .when("/tangki", {
+              templateUrl : "cont_tangki.html",
+              controller : "tangkiCtrl"
+          }) 
+          .when("/user", {
+              templateUrl : "cont_user.html",
+              controller : "userCtrl"
+          })                                                  
+          .when("/produk", {
+              templateUrl : "cont_produk.html",
+              controller : "produkCtrl"
+          })
+          .when("/bank", {
+              templateUrl : "cont_bank.html",
+              controller : "bankCtrl"
+          })  
+          .when("/po", {
+              templateUrl : "cont_po.html",
+              controller : "poCtrl"
+          })
+          .when("/jurnal", {
+              templateUrl : "cont_jurnal.html",
+              controller : "jurnalCtrl"
+          })
+          .when("/pinternal", {
+              templateUrl : "cont_pemakaian_internal.html",
+              controller : "pemakaian_internalCtrl"
+          })                                        
+          .when("/plain", {
+              templateUrl : "cont_pemakaian_lain.html",
+              controller : "pemakaian_lainCtrl"
+          }) 
+          .when("/transaksi_bbm", {
+              templateUrl : "cont_transaksi_bbm.html",
+              controller : "transaksi_bbmCtrl"
+          })        
+          .when("/do", {
+              templateUrl : "cont_do.html",
+              controller : "doCtrl"
+          })   
+          .when("/trbank", {
+              templateUrl : "cont_trbank.html",
+              controller : "trbankCtrl"
+          }) 
+          .when("/vpo", {
+              templateUrl : "cont_vpo.html",
+              controller : "vpoCtrl"
+          }) 
+          .when("/hutang", {
+              templateUrl : "cont_hutang.html",
+              controller : "hutangCtrl"
+          }) 
+          .when("/piutang", {
+              templateUrl : "cont_piutang.html",
+              controller : "piutangCtrl"
+          }) 
+          .when("/pj", {
+              templateUrl : "cont_pj.html",
+              controller : "pjCtrl"
+          })          
+
+
+          .when("/lab01", {
+              templateUrl : "lab01.html",
+              controller : "lab01Ctrl"
+          })                                       
+          .when("/lab02", {
+              templateUrl : "lab02.html",
+              controller : "lab02Ctrl"
+          })                                       
+          .when("/lab03", {
+              templateUrl : "lab03.html",
+              controller : "lab03Ctrl"
+          })  
+          .when("/lab04", {
+              templateUrl : "lab04.html",
+              controller : "lab04Ctrl"
+          })                                       
+          .when("/lab05", {
+              templateUrl : "lab05.html",
+              controller : "lab05Ctrl"
+          })                                       
+          .when("/lab06", {
+              templateUrl : "lab06.html",
+              controller : "lab06Ctrl"
+          })           
+          .when("/lab07", {
+              templateUrl : "lab07.html",
+              controller : "lab07Ctrl"
+          }) 
+
+
+
+          .when("/lap01", {
+              templateUrl : "lap01.html",
+              controller : "lap01Ctrl"
+          })                                       
+          .when("/lap02", {
+              templateUrl : "lap02.html",
+              controller : "lap02Ctrl"
+          })  
+
+      });
+    </script>
+
+<script>
+//=>MENAMPILKAN BAGIAN TERTENTU
+if (localStorage.getItem('bagiansisak')=='nozzle'){
+  $('.user_nozzle').show();
+  $('.user_backoffice').hide();
+  $('.user_keuangan').hide();    
+  $('.user_manager').hide();    
+  $('.user_maintain').hide();    
+}
+if (localStorage.getItem('bagiansisak')=='backoffice'){
+  $('.user_nozzle').hide();
+  $('.user_backoffice').show();
+  $('.user_keuangan').hide();    
+  $('.user_manager').hide();    
+  $('.user_maintain').hide();    
+}
+if (localStorage.getItem('bagiansisak')=='keuangan'){
+  $('.user_nozzle').hide();
+  $('.user_backoffice').hide();
+  $('.user_keuangan').show();    
+  $('.user_manager').hide();    
+  $('.user_maintain').hide();    
+}
+if (localStorage.getItem('bagiansisak')=='manager'){
+  $('.user_nozzle').hide();
+  $('.user_backoffice').hide();
+  $('.user_keuangan').hide();    
+  $('.user_manager').show();    
+  $('.user_maintain').hide();    
+}
+if (localStorage.getItem('bagiansisak')=='maintain'){
+  $('.user_nozzle').hide();
+  $('.user_backoffice').hide();
+  $('.user_keuangan').hide();    
+  $('.user_manager').hide();    
+  $('.user_maintain').show();    
+}
+</script>    
+<script src="js-db/control.js"></script>
+<script src="js-db/noperkCtrl.js"></script>
+<script src="js-db/kasCtrl.js"></script>
+<script src="js-db/suplierCtrl.js"></script>
+<script src="js-db/pelangganCtrl.js"></script>
+<script src="js-db/satuanCtrl.js"></script>
+<script src="js-db/nozzleCtrl.js"></script>
+<script src="js-db/tangkiCtrl.js"></script>
+<script src="js-db/userCtrl.js"></script>
+<script src="js-db/produkCtrl.js"></script>
+<script src="js-db/bankCtrl.js"></script>
+<script src="js-db/poCtrl.js"></script>
+<script src="js-db/jurnalCtrl.js"></script>
+<script src="js-db/pemakaian_internalCtrl.js"></script>
+<script src="js-db/pemakaian_lainCtrl.js"></script>
+<script src="js-db/transaksi_bbmCtrl.js"></script>
+<script src="js-db/doCtrl.js"></script>
+<script src="js-db/trbankCtrl.js"></script>
+<script src="js-db/vpoCtrl.js"></script>
+<script src="js-db/hutangCtrl.js"></script>
+<script src="js-db/piutangCtrl.js"></script>
+<script src="js-db/pjCtrl.js"></script>
+
+
+
+<script src="js-db/lab01Ctrl.js"></script>
+<script src="js-db/lab02Ctrl.js"></script>
+<script src="js-db/lab03Ctrl.js"></script>
+<script src="js-db/lab04Ctrl.js"></script>
+<script src="js-db/lab05Ctrl.js"></script>
+<script src="js-db/lab06Ctrl.js"></script>
+<script src="js-db/lab07Ctrl.js"></script>
+
+
+
+<script src="js-db/lap01Ctrl.js"></script>
+<script src="js-db/lap02Ctrl.js"></script>
+
+
+  </body>
+</html>

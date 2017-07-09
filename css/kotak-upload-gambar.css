@@ -1,0 +1,51 @@
+@charset "utf-8";
+/* CSS main */
+
+
+/* PEMBAGIAN POSISI */
+* {
+	margin:0;
+	padding:0;
+
+}
+
+	#container_gambar{
+		margin:auto;
+		padding:auto;		
+		background-color:#F4F4F4;
+		width:80%;
+		}
+
+
+	.kotakborder {
+		float: left;
+		width:33%;
+		height:280px;
+
+		/*background-color:#5DC4E0;*/
+	}
+
+	.judulgambar{
+			text-transform: uppercase;
+			height: 30px;
+			margin-bottom: 7px;
+			font-size: 1.4em;
+			font-family:neuropol; 
+			text-align: center;
+	}
+
+	.kotakgambar {
+		vertical-align: middle;
+		text-align: center;
+		margin: 5px;
+		width:80%;
+		height:58%;
+		border: 2px solid rgba(255, 255, 255, 0.1);
+		-webkit-box-shadow: 2px 2px 2px #101111;
+		box-shadow: 2px 2px 2px #101111;
+	}
+
+	.kotak_tombol_gambar{
+			height: 30px;
+			width: 20%;
+	}

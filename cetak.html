@@ -1,0 +1,130 @@
+<html>
+	<head>
+		<style>
+			@page {size: portrait; margin: 10mm 20mm 10mm 20mm; /* change the margins as you want them to be. */
+		</style>
+		<!--link href="css/bootstrap.min.css" rel="stylesheet"><link href="css/bootstrap-theme.css" rel="stylesheet"-->
+		<link href="css/elegant-icons-style.css" rel="stylesheet" />
+		<link href="css/print-table.css" rel="stylesheet">
+		<style>
+			body,.table{font: 1em "Helvetica Neue", Helvetica, Arial, sans-serif;} 
+			.hideprint{display:none;} 
+			.pra-cetak{display:initial;}
+		</style>
+	</head>
+	<body>
+		<div style="height: 30mm;"">
+			<div style="float:left">
+				<img src="http://rumahdijual.org/athumb/e/5/9/6221037.jpg" width="75%">
+			</div>
+			<div style="float:right; box-sizing: border-box; border: 1px solid black; padding:10px;">
+				<b><i>PURCHASE ORDER</i></b>
+			</div>
+		</div>
+		<hr style="border: 1px solid black">
+		<table  style="width:45%; float:left;">
+			<tr>
+				<td colspan="2" style="border:none;">
+					REKANAN/ SUPLIER
+				</td>
+			</tr>
+			<tr>
+				<td style="border:none;">
+					Kepada
+				</td>
+				<td style="border:none;">
+					: {{txtsuplier}}
+				</td>
+			</tr>
+		</table>
+		<table  style="width:45%; float:right;">
+			<tr>
+				<td style="border:none;">
+					Tanggal
+				</td style="border:none;">
+				<td style="border:none;">
+					: {{txttgl}}
+				</td>
+			</tr>
+			<tr>
+				<td style="border:none;">
+					No. PO
+				</td>
+				<td style="border:none;">
+					: {{txtnopo}}
+				</td>
+			</tr>
+			<tr>
+				<td style="border:none;">
+					No. Ref
+				</td>
+				<td style="border:none;">
+					: {{txtnoref}}
+				</td>
+			</tr>	
+			<tr>
+				<td  style="border:none;">&nbsp;</td>
+			</tr>					
+		</table>
+
+		<table align="center">
+		  <thead>
+		  <tr>
+		    <th colspan="5">
+		      <b><i>PURCHASE ORDER</i></b>
+		    </th>
+		  </tr>
+		  <tr>
+		    <th>Nama Produk</th>
+		    <th>Harga</th>
+		    <th>Qty</th>
+		    <th>Total</th>
+		  </tr>
+		  </thead>
+		  <tbody> 
+		    <tr ng-repeat="isid in listisipo">
+		      <td align="center">
+		      	<span>{{isid.produk_nama}}</span>
+		      </td>
+		      <td align="right">
+		      	<span>{{isid.harga | number}}</span>
+		      </td>
+		      <td align="center">
+		      	<span>{{isid.qty | number}} Ltr</span>
+		      </td>   
+		      <td align="right">
+		      	<span>{{isid.qty * isid.harga | number}}</span>
+		      </td>
+		    </tr>
+		    <tr>
+		        <td colspan='3' align="center"><b>TOTAL</b></td>
+		        <td align="right"><b>Rp {{total | number}}</b></td>
+		    </tr>            
+		  </tbody>
+		</table>
+
+		<br><br>
+		<table  style="width:30%; float:left;">
+			<tr>
+				<td algn="center">
+					Disetujui Oleh
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<br><br><br>
+				</td>
+			</tr>
+			<tr>
+				<td align="center">
+					...
+				</td>
+			</tr>			
+			<tr>
+				<td align="center">
+					Manager
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>

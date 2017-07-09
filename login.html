@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="mlogin">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SISPBU">
+    <meta name="author" content="TriSoft">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="img/favicon.png">
+
+    <title>Login | SISTORY</title>
+
+    <!-- Bootstrap CSS -->    
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- bootstrap theme -->
+    <link href="css/bootstrap-theme.css" rel="stylesheet">
+    <!--external css-->
+    <!-- font icon -->
+    <link href="css/elegant-icons-style.css" rel="stylesheet" />
+    <link href="css/font-awesome.css" rel="stylesheet" />
+    <!-- Custom styles -->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/style-responsive.css" rel="stylesheet" />
+
+    <!-- javascripts -->
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery-ui-1.10.4.min.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.9.2.custom.min.js"></script>
+    <!-- bootstrap -->
+    <script src="js/bootstrap.min.js"></script>
+</head>
+
+  <body class="login-img3-body" ng-controller="login" id="login">
+
+    <div class="container">
+
+      <form class="login-form">        
+        <div class="login-wrap">
+            <p class="login-img"><i class="icon_lock_alt"></i></p>
+            <div class="input-group">
+              <span class="input-group-addon"><i class="icon_profile"></i></span>
+              <input type="text" ng-model="txtUsername" class="form-control" placeholder="Username" enter autofocus>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="icon_key_alt"></i></span>
+                <input type="password" ng-model="txtPassword" class="form-control" placeholder="Password" enter>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="icon_house_alt"></i></span>
+                <input type="text" ng-model="txtBagian" class="form-control" placeholder="Bagian" enter>
+            </div>
+            <button class="btn btn-primary btn-lg btn-block" ng-click="cekLogin()">Login</button>
+        </div>
+      </form>
+
+    </div>
+
+<script>
+var usernama; 
+var passwordx; 
+var bagian;
+var mlogin = angular.module('mlogin', []);
+mlogin.controller('login', function($scope, $http) {
+
+    $scope.cekLogin = function(){
+        usernama=$scope.txtUsername;
+        passwordx=$scope.txtPassword;
+        bagian=$scope.txtBagian;
+
+        if ((usernama=="admin")&&(passwordx=="keuangan")&&(bagian=="keuangan")){
+            localStorage.setItem('usernama',usernama);
+            localStorage.setItem('bagiansisak',bagian);
+            window.location="index.html";
+        }else if ((usernama=="admin")&&(passwordx=="")&&(bagian=="backoffice")){
+            localStorage.setItem('usernama',usernama);
+            localStorage.setItem('bagiansisak',bagian);
+            window.location="index.html";
+        }else if ((usernama=="admin")&&(passwordx=="manager")&&(bagian=="manager")){
+            localStorage.setItem('usernama',usernama);
+            localStorage.setItem('bagiansisak',bagian);
+            window.location="index.html";
+        }else if ((usernama=="admin")&&(passwordx=="nozzle")&&(bagian=="nozzle")){
+            localStorage.setItem('usernama',usernama);
+            localStorage.setItem('bagiansisak',bagian);
+            window.location="index.html";
+        }else if ((usernama=="admin")&&(passwordx=="maintain")&&(bagian=="maintain")){
+            localStorage.setItem('usernama',usernama);
+            localStorage.setItem('bagiansisak',bagian);
+            window.location="index.html";
+        }else{
+            alert('ID Login salah! Cek Username dan Password!');
+        }
+    }
+
+});
+
+mlogin.directive('enter',function(){
+    return function(scope,element,attrs){
+        element.bind("keydown keypress",function(event){
+            if(event.which===13){
+                event.preventDefault();
+                var fields=$(this).parents('form:eq(0),body').find('input, textarea, select, button');
+                var index=fields.index(this);
+                if(index> -1&&(index+1)<fields.length)
+                    fields.eq(index+1).focus();
+            }
+        });
+    };
+});
+
+</script>
+  </body>
+</html>

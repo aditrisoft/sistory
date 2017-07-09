@@ -1,0 +1,92 @@
+form.adi-formy > div {
+  position: relative;
+  overflow: hidden;
+}
+form.adi-formy input, form textarea {
+  width: 100%;
+  border:none;
+  border-bottom: 2px solid #019587;
+  background: none;
+  position: relative;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  padding: 8px 12px;
+  outline: none;
+}
+form.adi-formy input:valid, form textarea:valid {
+  background: white;
+}
+form.adi-formy input:valid + label, form textarea:valid + label {
+  color: #019587;
+  font-size: 70%;
+  padding: 1px 6px 0px 16px;
+  z-index: 2;
+  text-transform: uppercase;
+}  
+form.adi-formy input:disabled, form textarea:disabled {
+  background: white;
+}
+form.adi-formy input:disabled + label, form textarea:disabled + label {
+  color: gray;
+  font-size: 70%;
+  padding: 1px 6px 0px 16px;
+  z-index: 2;
+  text-transform: uppercase;
+}  
+
+form.adi-formy input:focus, form textarea:focus {
+  border:none;
+}
+form.adi-formy input:focus + label, form textarea:focus + label {
+  background: #019587;
+  color: white;
+  font-size: 70%;
+  padding: 1px 6px 0px 16px;
+  z-index: 2;
+  text-transform: uppercase;
+  margin-bottom:0;
+}
+form.adi-formy label {
+  transition: background 0.2s, color 0.2s, top 0.2s, bottom 0.2s, right 0.2s, left 0.2s;
+  position: absolute;
+  color: #019587;
+  font-size: 0.85em;
+  font-weight: bold;
+  padding: 7px 6px 0px 16px;
+}
+form.adi-formy textarea {
+  display: block;
+  resize: vertical;
+}
+
+form.adi-formy.go-bottom input, form.go-bottom textarea {
+  padding: 12px 12px 12px 12px;
+}
+form.adi-formy.go-bottom label {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+form.adi-formy.go-bottom input:focus, form.go-bottom textarea:focus {
+  padding: 4px 6px 20px 6px;
+}
+form.adi-formy.go-bottom input:focus + label, form.go-bottom textarea:focus + label {
+  top: 100%;
+  margin-top: -16px;
+}
+
+form.adi-formy.go-right label {
+  top: 2px;
+  right: 100%;
+  width: 100%;
+  margin-right: -100%;
+  bottom: 2px;
+}
+form.adi-formy.go-right input:focus + label, form.go-right textarea:focus + label {
+  right: 0;
+  margin-right: 0;
+  width: 40%;
+  padding-top: 5px;
+}

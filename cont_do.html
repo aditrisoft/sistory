@@ -1,0 +1,675 @@
+<style>
+  th{
+    text-align:center;
+  }
+  .list-gambar{
+    max-height: 100px;   
+    float: left;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    cursor: default; 
+  }
+  .box-formy{
+/*    margin-top:10px;
+    margin-bottom:10px; */
+    box-shadow: 4px 4px 2px #888888;
+  }
+  .box-formy select{
+    border:none;
+    border-bottom:2px solid #019587;
+
+  }
+
+     
+</style>
+<style type="text/css">
+  [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+  } 
+
+  .icpanel{
+    background-color: #019587;
+    color:white;
+  }
+
+  .table-buka{
+    height:68vh;
+  }
+
+  .table-tutup{
+    height:0vh;
+  }
+
+
+  .headpaten{
+    position: -webkit-sticky;
+    position: -moz-sticky;
+    position: -ms-sticky;
+    position: -o-sticky;
+    position: sticky;
+    top: 0;
+    }
+
+  .warna{
+    color:white;
+  }
+
+  .labelx{
+    font-size:0.9em;
+  }
+  input[type="date"].filterx { 
+      max-width:32%;
+      font-size:  0.85em;
+      border:none;
+      border-bottom:2px solid #019587;
+      border-radius:  0px;
+  }
+
+  input[type="date"].adi { 
+    padding: 10px;
+    border: solid 1px #dcdcdc;
+    transition: box-shadow 0.3s, border 0.3s;
+    border-radius:  0px;
+    max-width:  150px;
+  }
+  input[type="date"]:focus.adi,
+  input[type="date"].focus.adi {
+    border: solid 1px #019587;
+    box-shadow: 0 0 5px 1px #06BAA9;
+  }
+
+  input[type="text"].adi {
+    padding: 10px;
+    border: solid 1px #dcdcdc;
+    transition: box-shadow 0.3s, border 0.3s;
+    border-radius:  0px;
+  }
+  input[type="text"]:focus.adi,
+  input[type="text"].focus.adi {
+    border: solid 1px #019587;
+    box-shadow: 0 0 5px 1px #06BAA9;
+  }
+
+  .tombolfilter{
+    color: white;
+    background-color: #019587;
+    border: none;   
+  }
+
+  .tombolinput{
+    color: white;
+    background-color: #019587;
+    border: 1px solid white;   
+  }
+  .tombolinput:hover{
+    color: #019587;
+    background-color: white;
+  }
+
+  .pra-cetak{
+    display:  none;
+  }
+
+  .sembunyi{
+    display: none;
+  }
+  .muncul{
+    display: block;
+  }
+
+</style>
+<link href="css/adi-formy.css" rel="stylesheet">
+<link href="css/adi-modal.css" rel="stylesheet">
+<section class="wrapper">
+<!-- page start-->
+  <div ng-cloak ng-controller="doCtrl" id="doCtrl">
+
+    <div class="row">
+      <div class="col-sm-6">
+        &nbsp;
+      </div>
+      <div class="col-sm-6">
+      <a href="">
+        <div class="panel-heading icpanel" data-toggle="collapse" data-target="#icpanel1" ng-click="icpanel1 = !icpanel1">
+          <div class="pull-left"><i class="fa fa-pencil" aria-hidden="true"></i>  Rincian DO <i>( Delivery Order )</i></div>
+          <div class="widget-icons pull-right">
+            <i ng-class="{'menu-arrow arrow_carrot-up':icpanel1==true, 'menu-arrow arrow_carrot-down': icpanel1!=true}" style="font-size:1.5em; font-weight: bold"></i>
+             <!--span class="glyphicon glyphicon-minus"></span=-->
+          </div>  
+          <div class="clearfix"></div>
+        </div>
+      </a>
+      </div>
+    </div>
+
+    <div id="icpanel1" class="collapse">
+      <div class="row">
+        <div class="containerx" style="margin:2em;">
+          <h3>Rincian Delivery Order</h3>
+          <p style="color:red;font-size:0.8em">* Edit produk untuk mengganti atau menambahkan quantity DO yang datang. </p>
+          <div class="frm-detailpasien" style="line-height:2.3em;">           
+            <div class="row">
+            <form name="myForm2">
+              <div class="col-sm-3 nopadding">
+                <div class="col-sm-4 labelx">
+                  Tanggal:
+                </div>
+                <div class="col-sm-8">
+                  <input id="txttgl" name="txttgl" class="form-control input-sm adi" ng-model="txttgl" type="date" enter>
+                </div>
+              </div>
+              <div class="col-sm-3 nopadding">
+               <div class="col-sm-3 labelx">
+                  Suplier:
+                </div>
+                <div class="col-sm-9">
+                  <input type="hidden" ng-model="txtidsuplier">
+                  <div style="display:inline-block;">
+                    <input type="text" class="input-sm adi" placeholder="Pemasok / Suplier.." ng-model="txtsuplier" disabled>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-3 nopadding">
+               <div class="col-sm-4 labelx">
+                  No. DO:
+                </div>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control input-sm adi" placeholder="" ng-model="txtnodo" name="txtnodo" id="txtnodo" required disabled>
+                </div>
+              </div>
+              <div class="col-sm-3 nopadding">
+               <div class="col-sm-4 labelx">
+                  No. PO:
+                </div>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control input-sm adi" placeholder="" ng-model="txtnopo" disabled>
+                </div>
+              </div>   
+            </form>  
+            </div>         
+          </div>   
+        </div>
+      </div>
+      <div class="row">        
+        <div data-ng-show="animation_image2" align="center">Sedang Mengambil Data...<br><img src="loading5.gif"  width="15%"></div>
+      </div> 
+      <div class="row" style="padding:0 1em 0 1em;">  
+        <div class="tabelx table-responsive" style="height:32vh;overflow:auto;">
+        <table class="table table-striped table-bordered" align="center" style="background-color:#A1E1DB" data-ng-show="!animation_image2">
+          <thead class="headpaten" style="background-color:#019587;">
+          <tr>
+            <th class="warna" colspan="5">
+              <button class="tombolinput" style="float:left;padding-right:  1em;" href="#myModal" data-toggle="modal" ng-click="bersihProduk()" data-ng-show="!myForm2.txtnodo.$invalid"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp; <i style="font-size:0.8em;">Tambah Produk</i></button>
+              <b><i style="font-size:0.8em;">RINCIAN DELIVERY ORDER</i></b>
+            </th>
+          </tr>
+          <tr>
+            <th class="warna">Nama Produk</th>
+            <th class="warna">Harga</th>
+            <th class="warna">Qty</th>
+            <th class="warna">Total</th>
+            <th class="warna"></th>
+          </tr>
+          </thead>
+          <tbody> 
+            <tr ng-repeat="isid in listisido">
+              <td align="center"><span style="font-weight: bold;color:#02695F">{{isid.produk_nama}}</span></td>
+              <td align="right"><span style="font-weight: bold;color:#02695F">{{isid.harga | number}}</span></td>
+              <td align="center"><span style="font-weight: bold;color:#02695F">{{isid.qty | number}} Ltr</span></td>   
+              <td align="right"><span style="font-weight: bold;color:#02695F">{{isid.qty * isid.harga | number}}</span></td>
+              <td align="center">
+                  <button class="btn btn-xs btn-success" ng-click="detailIsiDO(isid.produk_id)"><i class="icon_pencil" ></i></button>  
+                  <button class="btn btn-xs btn-danger" ng-click="hapusIsiDO(isid.produk_id)"><i class="icon_trash_alt" ></i></button>                  
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        </div>
+      </div> 
+      <!--div class="row">
+        <div class="col-sm-12">
+          <div class="panel-heading icpanel" data-ng-show="!animation_image2" >
+            <b> Total PO : Rp {{total | number}} </b> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+            <b> Total Terbayar : Rp {{totjmlbayar | number}} </b> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+            <b><i> Kekurangan : Rp {{totkurangbayar | number}} </i></b> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+            <button class="btn btn-xs btn-info" href="#info2" data-toggle="modal" ><i class="icon_question_alt" ></i></button> 
+          </div>        
+        </div>
+      </div-->      
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="panel-heading icpanel" data-ng-show="!animation_image2" style="font-size:0.8em;">
+            <b> Total PO : Rp {{total | number}} </b> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+            <b> Total DO : Rp {{totaldo | number}} </b> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+            <b><i> Selisih : Rp {{totalselisih | number}} </i></b> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+            <button class="btn btn-xs btn-info" href="#info1" data-toggle="modal" ><i class="icon_question_alt" ></i></button> 
+          </div>        
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="panel-heading icpanel" data-ng-show="!animation_image2" >
+            <div class="row">
+              <div class="col-sm-3 col-xs-3">
+                <div data-ng-show="pilihselisih">
+                  <span style="color:white;font-weight: bold">{{bayarselisih}} :</span>
+                  <select class="form-control" ng-model="txtcarabayar" ng-change="cekcarabayar()" ng-options="pilih.kode as pilih.uraian for pilih in carabayar" style="width:150px;" enter>
+                  </select>
+                </div>
+              </div>
+              <div class="col-sm-3 col-xs-3">
+                <div data-ng-show="rekbank">
+                    <span style="color:white;font-weight: bold">Rek. Bank :</span>
+                    <select class="form-control" ng-model="txtnoperkbank"  ng-options="pilih.noperk as pilih.bank +' - an. '+ pilih.an  for pilih in bank" enter>
+                    </select>
+                </div> 
+              </div>
+              <div class="col-sm-6 col-xs-6">
+                <button class="tombolinput" style="float:right;margin-right: 1em;padding:20px;" ng-click="EditData()" data-ng-show="!myForm2.txtnodo.$invalid"><i class="fa fa-save" aria-hidden="true"></i>&nbsp; <i style="font-size:1em;">Terima DO</i></button>  
+              </div>
+            </div>
+          </div>        
+        </div>
+      </div>      
+    </div>
+
+    <div class="row"><br></div>
+    <header class="panel-heading" ng-class="{'sembunyi':icpanel1==true, 'muncul': icpanel1!=true}">
+      <div class="row">
+        <div class="col-lg-3"><b>DAFTAR DO</b></div>
+        <div class="col-lg-6">
+ 
+          <span style="font-weight:bold;color:#AF0004;float:right;font-size:0.8em; padding-right:  1em;">{{total_pencarian}}</span>
+        </div>          
+        
+        <div class="col-lg-3">                   
+          <div class="col-sm-10 col-xs-10">     
+            <input type="text" class="form-control adi" id="txtfilter" ng-model="cariPO" placeholder="Filter Pencarian ...." ><!-- event tekan tombol enter -->
+          </div>
+          <div class="col-sm-2 col-xs-2">     
+            <button class="tombolfilter" data-toggle="collapse" data-target="#icpanel2" ng-click="icpanel2 = !icpanel2"><i ng-class="{'menu-arrow arrow_carrot-up':icpanel2==true, 'menu-arrow arrow_carrot-down': icpanel2!=true}" style="font-size:1.5em; font-weight: bold"></i></button>
+          </div>         
+        </div>
+      </div>      
+      <div class="row">
+        <div class="col-sm-8">
+
+        </div>
+        <div class="col-sm-4">
+          <div id="icpanel2" class="collapse" style="float:right;">      
+            <br>
+            Tanggal &nbsp; 
+            <input id="txttglawal" name="txttglawal" ng-model="txttglawal" type="date" class="filterx" enter>
+            s/d  
+            <input id="txttglakhir" name="txttglakhir" ng-model="txttglakhir" type="date" class="filterx" enter>     
+            &nbsp;   
+            <button ng-click="tampilData()" class="btn btn-xs btn-success" style=""><i class="fa fa-search" aria-hidden="true"></i></button>
+          </div>
+        </div> 
+      </div>
+    </header>
+  <span id="cetak">
+    <span class="pra-cetak" >     
+      <h3 align="center" style="font: 1.2em 'Helvetica Neue', Helvetica, Arial, sans-serif;">Daftar DO</h3><br>
+      <span style="font-weight:bold;color:black;float:right;text-align:center;font: 10pt 'Helvetica Neue', Helvetica, Arial, sans-serif;">Periode  {{txttglawal  | date:'dd MMM yyyy' }} s/d {{txttglakhir | date:'dd MMM yyyy' }} </span><br><br>    
+    </span>
+    <div class="tabelx table-responsive" ng-class="{'table-tutup':icpanel1==true, 'table-buka': icpanel1!=true}" style="overflow:auto;">
+    <table class="table table-striped table-bordered">
+      <thead class="headpaten" style="background-color:#019587;">
+        <tr>
+          <th class="warna">No. DO</th> 
+          <th class="warna">Tanggal</th>
+          <th class="warna">No. PO</th> 
+          <th class="warna">Suplier</th>
+          <th class="warna">No. Ref</th>
+          <th class="warna">Total</th>
+          <th class="warna">Status</td>          
+          <!--th>Petugas</th-->          
+          <th class="hideprint">
+            <button class="tombolfilter hideprint" style="float:right;padding-right:  1em;" OnClick="printContent('cetak')"><i class="fa fa-print" aria-hidden="true"></i>&nbsp; <i style="font-size:0.8em;">Print</i></button>
+          </th>
+        </tr>
+      </thead>
+      <tbody> 
+        <tr ng-repeat="x in isi | filter:cariPO">
+          <td align="center">{{x.nodo}}</td>
+          <td align="center">{{x.tgl | date:'EEE, dd-MMM-yyyy'}}</td>
+          <td align="center">{{x.nopo}}</td>
+          <td>{{x.suplier}}</td>  
+          <td align="center">{{x.noref}}</td>  
+          <td align="right">Rp {{x.total | number}}</td> 
+          <td align="center">
+            <i style="color:red; font-size:0.9em;" ng-if="x.statustr==1">Belum Diterima</i>
+            <i style="color:green; font-size:0.9em;" ng-if="x.statustr==0">Sudah Diterima</i>
+          </td>
+          <!--td>{{x.usernama}}</td-->                  
+          <td align="right" class="hideprint">
+            &nbsp; 
+            <button class="btn btn-xs btn-success" onclick="$('#icpanel1').collapse('show')" ng-click="tampilDetail(x.nodo);" ng-if="x.statustr==1"><i class="icon_check_alt2"></i> Terima</button>          
+            &nbsp; 
+            <button class="btn btn-xs btn-info" ng-click="printDetail(x.nodo);" href="#printDO" data-toggle="modal" ng-if="x.statustr==0"><i class="fa fa-print"></i> Cetak DO</button>                         
+            &nbsp; 
+            <button class="btn btn-xs btn-danger" ng-click='hapusData(x.nopo);' ng-if="x.statustr==0"><i class="icon_trash"></i> Batalkan</button> 
+                                 
+          </td>
+        </tr>
+        <tr data-ng-show="showtotallist">
+            <td colspan='5' align="center"><b>TOTAL</b></td>
+            <td align="right"><b>Rp {{totallist | number}}</b></td>
+            <td></td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ng-show="animation_image" align="center" class="hideprint"><img src="loading.gif"  width="5%"></div>
+    </div>
+  </span>
+
+
+    <!-- Modal Tambah Produk -->
+    <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content"  style="background:white">
+          <div class="modal-header-adi">
+            <button type="button" class="close" data-dismiss="modal"><span class="icon-close"></span></button>
+            <h4 class="modal-title">Produk</h4>
+          </div>
+          <div class="modal-body">
+            <form name="myForm" class="adi-formy go-bottom">
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm-3">
+                    <input id="txtproduk_id" name="txtproduk_id" ng-model="txtproduk_id" type="text" required disabled>
+                    <label for="txtproduk_id">Kode Produk</label>
+                  </div>                
+                  <div class="col-sm-7">
+                    <input id="txtproduk_nama" name="txtproduk_nama" ng-model="txtproduk_nama" type="text" disabled>
+                    <label for="txtnamaperk">Nama Produk</label>
+                  </div>
+                  <div class="col-sm-2 text-right">
+                    <button class="btn btn-info" href="#listProduk" data-toggle="modal" data-ng-show="tmbcariproduk"><i class="fa fa-search" aria-hidden="true"></i></button> 
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-8">
+                    <input id="txtharga" name="txtharga" ng-model="txtharga" type="number" enter required>
+                    <label for="txtharga">Harga</label>
+                  </div>                
+                  <div class="col-sm-4">
+                    <input id="txtqty" name="txtqty" ng-model="txtqty" type="number" enter  required>
+                    <label for="txtqty">Qty (Ltr)</label>
+                  </div>
+                </div> 
+                <div class="row">
+                  <div class="col-sm-8">
+                    <input id="txttotal" name="txttotal" ng-model="txtharga*txtqty" type="text" format="currency" disabled>
+                    <label for="txtketerangan">Total Harga</label>
+                  </div>                
+                  <div class="col-sm-4">
+                    <!--input id="txtkeluar" name="txtkeluar" ng-model="txtkeluar" type="number" enter  required>
+                    <label for="txtkeluar">Nominal</label>
+                    <input ng-model="txtmasuk" value="0" type="hidden"-->
+                  </div>
+                </div>                                
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" data-ng-show="TmbUpdate" class="btn btn-success" ng-click="updateDataDO()"  style="float:left;" ng-disabled="myForm.txtproduk_id.$invalid || myForm.txtharga.$invalid  || myForm.txtqty.$invalid">Edit</button>
+            <button type="button" data-ng-show="TmbSimpan" class="btn btn-success" ng-click="SimpanData()"  style="float:left;" ng-disabled="myForm.txtproduk_id.$invalid || myForm.txtharga.$invalid  || myForm.txtqty.$invalid" >Tambahkan</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+  <!-- Modal List Pencarian -->
+  <div class="modal fade" id="listProduk" role="dialog">
+    <div class="modal-dialog modal-lg" style="width:90%;height:100vh;">
+
+    <!-- Modal content-->
+    <div class="modal-content"  style="background:white">
+      <div class="modal-header-adi">
+          <button type="button" class="close" data-dismiss="modal"><span class="icon-close"></span></button>
+        <h4 class="modal-title">Data Produk</h4>
+      </div>
+      <div class="modal-body">
+          <header class="panel-heading">
+            <div class="row">
+              <div class="col-lg-3"><b>DATA PRODUK</b></div>
+              <div class="col-lg-3"></div>
+              <div class="col-lg-3"> </div>          
+              <div class="col-lg-3">                        
+                <input class="form-control" ng-model="txtcariproduk" placeholder="Filter Pencarian ...." type="text" ng-keydown="$event.which === 13 && tampilListProduk()"><!-- event tekan tombol enter -->
+              </div>
+            </div>      
+          </header>    
+          <div class="tabelx table-responsive" style="height:55vh;overflow:auto;" onscroll="loadlagi()">
+            <table class="table table-striped table-bordered table-hover">
+              <span style="font-weight:bold;color:#AF0004;float:right">{{total_pencarian_produk}}</span>
+              <thead>
+                <tr>
+                  <th>Kode Produk</th>
+                  <th>Nama Produk</th>
+                  <th>Harga Jual</th>
+                </tr>
+              </thead>
+              <tbody> 
+                <tr ng-repeat="rm in lscariproduk" ng-click="ambilListCariProduk(rm.produk_id);" data-dismiss="modal">
+                  <td><b>{{rm.produk_id}}</b></td>
+                  <td>{{rm.produk_nama}}</td>
+                  <td>{{rm.harga_jual}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div data-ng-show="animation_image" align="center"><img src="loading.gif"  width="5%"></div>
+          </div>      
+      </div>
+      <div class="modal-footer">   
+        <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+      </div>
+    </div>
+
+    </div>
+  </div>
+
+
+
+
+  <!-- INFO -->
+  <!-- Modal List Pencarian -->
+  <div class="modal fade" id="info1" role="dialog">
+    <div class="modal-dialog modal-lg" >
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header-info">
+          <button type="button" class="close" data-dismiss="modal"><span class="icon-close"></span></button>
+        <h4 class="modal-title">Bantuan</h4>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          Total PO = Total dari Purchase Order yang telah dientry sebelumnya.<br>
+          Total DO = Total dari Delivery Order yang dientry sekarang.<br>
+          Selisih = Total dari PO dikurangan Total dari DO.<br>
+          <br>
+          * Jika Nilai Selisih minus maka brarti nilai DO lebih besar dari PO yang sebelumnya dibuat sehingga muncul metode pembayaran tambahan untuk membayar kekurangannya. Jika Nilai Selisih Plus maka sebaliknya akan muncul metode untuk menerima kekurangan. 
+        </div>
+      </div>
+      <div class="modal-footer">   
+        <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+      </div>
+    </div>
+
+    </div>
+  </div>
+  <!-- end INFO -->  
+
+
+
+
+  <!-- DIBAWAH INI HANYA MODUL CETAK-->
+  <div class="modal fade" id="printPO" role="dialog">
+    <div class="modal-dialog modal-lg" style="width:50%;">
+
+    <!-- Modal content-->
+    <div class="modal-content"  style="background:white">
+      <div class="modal-header-adi">
+          <button type="button" class="close" data-dismiss="modal"><span class="icon-close"></span></button>
+        <h4 class="modal-title">Menu Cetak</h4>
+      </div>
+      <div class="modal-body" style="overflow-y: scroll;">
+        <section>
+
+          <button class="btn btn-block btn-info" onclick="printContent('cetak2');" ng-disabled="cetakPO"><i class="fa fa-print" style="float:left;padding-left: 2em;font-size:1.7em;"></i> Cetak Purchase Order (PO)</button>
+
+        </section>
+      </div>
+      <div class="modal-footer">   
+        <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+      </div>
+    </div>
+
+    </div>
+  </div>
+
+
+  <!-- TAMPILAN CETAK -->
+  <span id="cetak2" class="pra-cetak">
+    <div style="height: 30mm;"">
+      <table>
+        <tr>
+          <td width="20%" style="border:none;">
+            <img src="http://rumahdijual.org/athumb/e/5/9/6221037.jpg" width="99%">
+          </td>
+          <td width="60%" style="border:none;">
+            <div style="text-align: center; font-weight: bold; font-size: 3.5em;">{{namainstansi}}</div>
+            <div style="text-align: center; font-weight: bold; font-size: 1.5em;">{{alamatinstansi}}</div>  
+          </td>
+          <td width="20%" style="border:none;">
+            <div style="float:right; box-sizing: border-box; border: 1px solid black; padding:10px; ">
+            <b><i>PURCHASE ORDER</i></b>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <hr style="border: 1px solid black">
+    <table style="width:45%; float:left;">
+      <tr>
+        <td colspan="2" style="border:none;">
+          REKANAN/ SUPLIER
+        </td>
+      </tr>
+      <tr>
+        <td style="border:none;">
+          Kepada
+        </td>
+        <td style="border:none;">
+          : {{txtsuplier}}
+        </td>
+      </tr>
+    </table>
+    <table  style="width:45%; float:right;">
+      <tr>
+        <td style="border:none;">
+          Tanggal
+        </td style="border:none;">
+        <td style="border:none;">
+          : {{txttgl}}
+        </td>
+      </tr>
+      <tr>
+        <td style="border:none;">
+          No. PO
+        </td>
+        <td style="border:none;">
+          : {{txtnopo}}
+        </td>
+      </tr>
+      <tr>
+        <td style="border:none;">
+          No. Ref
+        </td>
+        <td style="border:none;">
+          : {{txtnoref}}
+        </td>
+      </tr> 
+      <tr>
+        <td  style="border:none;">&nbsp;</td>
+      </tr>         
+    </table>
+
+    <table align="center">
+      <thead>
+      <tr>
+        <th colspan="5">
+          <b><i>PURCHASE ORDER</i></b>
+        </th>
+      </tr>
+      <tr>
+        <th>Nama Produk</th>
+        <th>Harga</th>
+        <th>Qty</th>
+        <th>Total</th>
+      </tr>
+      </thead>
+      <tbody> 
+        <tr ng-repeat="isid in listisido">
+          <td align="center">
+            <span>{{isid.produk_nama}}</span>
+          </td>
+          <td align="right">
+            <span>{{isid.harga | number}}</span>
+          </td>
+          <td align="center">
+            <span>{{isid.qty | number}} Ltr</span>
+          </td>   
+          <td align="right">
+            <span>{{isid.qty * isid.harga | number}}</span>
+          </td>
+        </tr>
+        <tr>
+            <td colspan='3' align="center"><b>TOTAL</b></td>
+            <td align="right"><b>Rp {{total | number}}</b></td>
+        </tr>            
+      </tbody>
+    </table>
+
+    <br><br>
+    <table  style="width:30%; float:left;">
+      <tr>
+        <td align="center">
+          <b>Disetujui Oleh</b>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <br><br><br>
+        </td>
+      </tr>
+      <tr>
+        <td align="center">
+          ...
+        </td>
+      </tr>     
+      <tr>
+        <td align="center">
+          Manager
+        </td>
+      </tr>
+    </table>
+  </span>
+  <!-- end TAMPILAN CETAK -->
+
+
+  </div>
+  </section>
+
+
+
+

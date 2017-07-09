@@ -1,0 +1,204 @@
+
+<style>
+  .tulisan{
+    color: #4a4a4d;
+    font: 12px/1.4 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  .headpaten{
+    position: -webkit-sticky;
+    position: -moz-sticky;
+    position: -ms-sticky;
+    position: -o-sticky;
+    position: sticky;
+    top: 0;
+    }
+
+  /* Warna Tulisan Pada Header Table */
+  .warna{
+    color:white;
+  }
+   table {
+    border-collapse: separate;
+    border-spacing: 0;
+    color: #4a4a4d;
+    font: 1.1em "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+
+table, th, td {
+    border: 0px solid white;
+}
+
+  td {
+    padding: 10px 15px;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+  th{
+    text-align: center;
+        padding: 10px 15px;
+    vertical-align: middle;
+  }
+  thead {
+    background: #395870;
+    background: linear-gradient(#49708f, #293f50);
+    color: #fff;
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+  th:first-child {
+/*    border-top-left-radius: 5px; */
+    text-align: left;
+  }
+  th:last-child {
+ /*   border-top-right-radius: 5px; */
+  }
+  tbody tr:nth-child(even) {
+    background: #f0f0f2;
+  }
+  td {
+    border-bottom: 1px solid #cecfd5;
+    border-right: 1px solid #cecfd5;
+  }
+  td:first-child {
+    border-left: 1px solid #cecfd5;
+  }
+  .book-title {
+    color: #395870;
+    display: block;
+  }
+  .text-offset {
+    color: #7c7c80;
+    font-size: 12px;
+  }
+  .item-stock,
+  .item-qty {
+    text-align: center;
+  }
+  .item-price {
+    text-align: right;
+  }
+  .item-multiple {
+    display: block;
+  }
+  tfoot {
+    text-align: right;
+  }
+  tfoot tr:last-child {
+    background: #f0f0f2;
+    color: #395870;
+    font-weight: bold;
+  }
+  tfoot tr:last-child td:first-child {
+    border-bottom-left-radius: 5px;
+  }
+  tfoot tr:last-child td:last-child {
+    border-bottom-right-radius: 5px;
+  } 
+</style>
+<style type="text/css">
+  [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+  } 
+</style>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="css/adi-modal.css" rel="stylesheet">
+<section class="wrapper" >
+<!-- page start-->
+  <div ng-cloak ng-controller="lab03Ctrl" >
+
+    <div class="row"><br></div>
+    <div class="row"><br></div>
+    <div class="row tulisan">
+      <div class="col-lg-3">  
+        Tgl Awal
+        <input id="txttglawal" name="txttglawal" ng-model="txttglawal" type="date" enter>
+        <!--input class="form-control" id="txtfilter" ng-model="txtcari" placeholder="Filter Pencarian ...." type="text" ng-keydown="$event.which === 13 && tampilRMCari()"-->
+      </div><!-- event tekan tombol enter -->
+      <div class="col-lg-3">
+        s/d Tgl Akhir 
+        <input id="txttglakhir" name="txttglakhir" ng-model="txttglakhir" type="date" enter>        <button ng-click="tampilLap()" class="btn btn-xs btn-success" style="float:right;"><i class="material-icons">search</i></button>
+      </div>
+      <div class="col-lg-3">
+
+      </div>          
+      <div class="col-lg-3">
+        <button type="submit" onClick="printContent('cetak')" class="btn btn-xs btn-info" style="float:left;"><i class="material-icons" style="font-weight: bolder">print</i></button>
+      </div>
+    </div>
+
+    <div class="row"><br></div>
+    <header class="panel-heading">
+      <b>{{judullap}}</b>
+      <span style="font-weight:bold;color:#AF0004;float:right">{{total_pencarian}}</span>   
+    </header>
+
+    <div class="tabelx table-responsive" style="height:60vh;overflow:auto;">
+    <span id="cetak">
+    <span id="pra-cetak" style="display:none;">     
+      <h3 align="center" style="font: 12pt 'Helvetica Neue', Helvetica, Arial, sans-serif;">{{judullap}}</h3><br>
+      <span style="font-weight:bold;color:black;float:right;text-align:center;font: 10pt 'Helvetica Neue', Helvetica, Arial, sans-serif;">Periode  {{txttglawal  | date:'dd MMM yyyy' }} s/d {{txttglakhir | date:'dd MMM yyyy' }} </span><br><br>    
+    </span>     
+    <table class="table-hover" style="width:100%">
+      <thead class="headpaten">
+        <tr>
+          <th class="warna">No</th>
+          <th class="warna">Kode</th>
+          <th class="warna">Nama Produk</th>
+          <th class="warna">Total Pembelian</th>
+          <th class="warna">Harga Rata-Rata</th>
+          <th class="warna">Rata-Rata Pembelian</th>
+        </tr>
+      </thead>
+      <tbody> 
+        <tr ng-repeat="rm in listx">
+          <td align="center">{{$index+1 | number}}</td>
+          <td align="center">{{rm.produk_id}}</td>
+          <td align="center">{{rm.produk_nama}}</td>
+          <td align="center">{{rm.qty | number}} Ltr</td>          
+          <td align="right"><span style="float:left;font-size:0.8em">Rp</span> {{rm.hpp_rata | number}}</td>
+          <td align="right"><span style="float:left;font-size:0.8em">Rp</span> {{rm.nilaipersediaan | number}}</td>
+        </tr>
+        <tr>
+          <td colspan="3" align="center"><b>TOTAL / RATA-RATA</b></td>
+          <td align="center"><b>{{totalqty | number}} Ltr</b></td>
+          <td align="right"><b><span style="float:left;font-size:0.8em">Rp</span> {{avgharga | number:0}}</b></td>
+          <td align="right"><b><span style="float:left;font-size:0.8em">Rp</span> {{totalpersediaan | number}}</b></td>
+        </tr>
+      </tbody>
+    </table>
+    </span>
+    <div data-ng-show="animation_image" align="center"><img src="loading5.gif"  width="30%"></div>
+    </div>
+
+
+
+
+
+  </div>
+  </section>
+
+
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src='http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js'></script>
+
+<script type="text/javascript">
+  function printContent(el){
+      //tampilkan pra-cetak
+      $('#pra-cetak').show();
+
+      //cetak
+ //     var restorepage = document.body.innerHTML;
+      var printcontent = document.getElementById(el).innerHTML;
+      var popupWin = window.open('', '_blank','fullscreen=yes');
+    popupWin.document.open();
+    popupWin.document.write('<html><head><style>@page {size: portrait; margin: 10mm 20mm 10mm 20mm; /* change the margins as you want them to be. */</style><!--link href="css/bootstrap.min.css" rel="stylesheet"><link href="css/bootstrap-theme.css" rel="stylesheet"--><link href="css/elegant-icons-style.css" rel="stylesheet" /><link href="css/print-table.css" rel="stylesheet"><style>body,.table{font: 8pt "Helvetica Neue", Helvetica, Arial, sans-serif;}</style></head><body onload="window.print()">' + printcontent + '</body></html>');
+    popupWin.document.close();
+//      document.body.innerHTML = printcontent;
+//      window.print();
+//      document.body.innerHTML = restorepage;
+      
+      //sembunyikan pra-cetak
+      $('#pra-cetak').hide();
+  }
+</script>
+

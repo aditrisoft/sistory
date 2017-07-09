@@ -1,0 +1,28 @@
+	table.simpel-table {
+		font-family: verdana, arial, sans-serif;
+		font-size: 0.9em;
+		color: #333333;
+		border-width: 1px;
+		border-color: #3A3A3A;
+		border-collapse: collapse;
+	}
+ 
+	table.simpel-table th {
+		border-width: 1px;
+		padding: 8px;
+		border-style: solid;
+		border-color: #517994;
+		background-color: #B2CFD8;
+	}
+ 
+	table.simpel-table tr:hover td {
+		background-color: #DFEBF1;
+	}
+ 
+	table.simpel-table td {
+		border-width: 1px;
+		padding: 8px;
+		border-style: solid;
+		border-color: #517994;
+		background-color: #ffffff;
+	}
