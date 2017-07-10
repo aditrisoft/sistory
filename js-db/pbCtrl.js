@@ -1,4 +1,4 @@
-adiapp.controller('pjCtrl', function($scope,$http) {
+adiapp.controller('pbCtrl', function($scope,$http) {
 
   $scope.link_database=link_database;
   $scope.namainstansi=namainstansi;
@@ -18,15 +18,16 @@ adiapp.controller('pjCtrl', function($scope,$http) {
   $scope.hapusData = function(kode){
     var r = confirm ("Yakin akan dihapus");
     if (r==false){return;}
-    $http.post(link_database+"list-pj-cud.php",{
+    $http.post(link_database+"list-pb-cud.php",{
       'cud':'hapus',
-      'nopj':kode
+      'nopb':kode
     }).success(function(data, status, headers, config){
       if(data!=''){
         alert(data);
+      }else{
+        $scope.tampilData();
+        $scope.bersihData();        
       }
-      $scope.tampilData();
-      $scope.bersihData();
 //      alert('Hapus Sukses!');
     },function(error){
       alert('Hapus Gagal');
@@ -36,7 +37,7 @@ adiapp.controller('pjCtrl', function($scope,$http) {
   $scope.SimpanData = function(){
     var r =confirm("yakin data yang anda masukkan sudah benar?");
     if (r==false){return;}
-    $http.post(link_database+"list-pj-cud.php",{
+    $http.post(link_database+"list-pb-cud.php",{
         'cud':'input',
         'tgl':$scope.txttgl,
         'produk_id':$scope.txtproduk_id,
@@ -44,13 +45,13 @@ adiapp.controller('pjCtrl', function($scope,$http) {
         'qty':$scope.txtqty,
         'noref':$scope.txtnoref,
         'usernama':'admin',
-        'idpelanggan':$scope.txtidpelanggan,
-        'nopj':$scope.txtnopj //=> kalo ini ada isinya tidak perlu buat transaksi nopj baru
+        'idsuplier':$scope.txtidsuplier,
+        'nopb':$scope.txtnopb //=> kalo ini ada isinya tidak perlu buat transaksi nopb baru
       }).success(function(data, status, headers, config){
         $('#myModal').modal('hide');  
         $('.modal-backdrop').remove();    
-        $scope.txtnopj=data;
-        $scope.tampilIsiPJ($scope.txtnopj); 
+        $scope.txtnopb=data;
+        $scope.tampilIsiPB($scope.txtnopb); 
         $scope.bersihProduk();
         $scope.tampilData();
       },function(error){
@@ -62,20 +63,19 @@ adiapp.controller('pjCtrl', function($scope,$http) {
 //    alert(parseFloat($scope.total)-parseFloat($scope.txtuangmuka));
     var r =confirm("Yakin data yang Anda masukkan sudah benar?");
     if (r==false){return;}
-    $http.post(link_database+"list-pj-cud.php",{
+    $http.post(link_database+"list-pb-cud.php",{
         'cud':'edit',
         'tgl':$scope.txttgl,
         'noref':$scope.txtnoref,
         'usernama':'admin',
-        'idpelanggan':$scope.txtidpelanggan,
-        'pelanggan':$scope.txtpelanggan,
+        'idsuplier':$scope.txtidsuplier,
+        'suplier':$scope.txtsuplier,
         'cara_bayar':$scope.txtcarabayar,   
         'noperk':$scope.txtnoperkbank,
         'jmlbayar':$scope.txtuangmuka,
         'kurangbayar':parseFloat($scope.total)-parseFloat($scope.txtuangmuka),            
-        'nopj':$scope.txtnopj //=> kalo ini ada isinya tidak perlu buat transaksi nopj baru
+        'nopb':$scope.txtnopb //=> kalo ini ada isinya tidak perlu buat transaksi nopj baru
       }).success(function(data, status, headers, config){
-        alert(data);
         $scope.tampilData();
         alert('Data Tersimpan!');
         $scope.bersihData();
@@ -93,12 +93,12 @@ adiapp.controller('pjCtrl', function($scope,$http) {
     $scope.txtproduk_nama='';
     $scope.txtqty='';
     $scope.txttotal='';
-    $scope.txtnopj='';
+    $scope.txtnopb='';
     $scope.txtnoref='';
     $scope.dskode=false;
-    $scope.listisipj=[];
-    $scope.txtidpelanggan='';
-    $scope.txtpelanggan='';
+    $scope.listisipb=[];
+    $scope.txtidsuplier='';
+    $scope.txtsuplier='';
     $scope.txttgl=d;
     $scope.rekbank=false;
     $scope.total='';
@@ -120,16 +120,16 @@ adiapp.controller('pjCtrl', function($scope,$http) {
     $scope.dskode=true;
     $scope.TmbSimpan=true;
 //    $scope.TmbUpdate=true;
-    $http.post(link_database+"list-pj-cud.php",{
+    $http.post(link_database+"list-pb-cud.php",{
       'cud':'detail',
-      'nopj':kode
+      'nopb':kode
     }).success(function(data, status, headers, config){
       $scope.cud=data;
-      $scope.txtnopj=$scope.cud[0].nopj;
+      $scope.txtnopb=$scope.cud[0].nopb;
       $scope.txttgl=new Date($scope.cud[0].tgl);
       $scope.txtnoref=$scope.cud[0].noref;
-      $scope.tampilIsiPJ($scope.txtnopj);
-      $scope.txtpelanggan=$scope.cud[0].pelanggan;
+      $scope.tampilIsiPB($scope.txtnopb);
+      $scope.txtsuplier=$scope.cud[0].suplier;
      },function(error){
       alert('Gagal Menyimpan!');
     });
@@ -140,9 +140,9 @@ adiapp.controller('pjCtrl', function($scope,$http) {
     $scope.dskode=true;
     $scope.TmbSimpan=true;
 //    $scope.TmbUpdate=true;
-    $http.post(link_database+"list-pj-cud.php",{
+    $http.post(link_database+"list-pb-cud.php",{
       'cud':'detail',
-      'nopj':kode
+      'nopb':kode
     }).success(function(data, status, headers, config){
       $scope.cud=data;
       $scope.total=$scope.cud[0].total;
@@ -161,7 +161,7 @@ adiapp.controller('pjCtrl', function($scope,$http) {
 
   $scope.tampilJumlah = function(){
     $scope.animation_image=true;
-    $http.get(link_database+'list-pj.php?tglawal='+iTgl($scope.txttglawal)+'&tglakhir='+iTgl($scope.txttglakhir)).success(function(data,status,header,config){
+    $http.get(link_database+'list-pb.php?tglawal='+iTgl($scope.txttglawal)+'&tglakhir='+iTgl($scope.txttglakhir)).success(function(data,status,header,config){
       $scope.jumx=data;
         if ($scope.jumx.length==0){
           $scope.total_pencarian='Tidak ada data ditemukan!';
@@ -175,7 +175,7 @@ adiapp.controller('pjCtrl', function($scope,$http) {
 
   $scope.tampilData = function(){
     $scope.tampilJumlah();
-    $http.get(link_database+'list-pj.php?tglawal='+iTgl($scope.txttglawal)+'&tglakhir='+iTgl($scope.txttglakhir)).success(function(data,status,header,config){
+    $http.get(link_database+'list-pb.php?tglawal='+iTgl($scope.txttglawal)+'&tglakhir='+iTgl($scope.txttglakhir)).success(function(data,status,header,config){
       $scope.animation_image=true;
         $scope.isi=data;
           //tampilkan total
@@ -226,10 +226,10 @@ adiapp.controller('pjCtrl', function($scope,$http) {
   }
 
 
-  $scope.txtcaripelanggan="";
-  $scope.tampilListPelangganJumlah = function(){
+  $scope.txtcarisuplier="";
+  $scope.tampilListsuplierJumlah = function(){
     $scope.animation_image=true;
-    $http.get(link_database+'list-pelanggan.php?cari='+$scope.txtcaripelanggan).success(function(data,status,header,config){
+    $http.get(link_database+'list-suplier.php?cari='+$scope.txtcarisuplier).success(function(data,status,header,config){
       $scope.jumx=data;
         if ($scope.jumx.length==0){
           $scope.total_pencarian_produk='Tidak ada data ditemukan!';
@@ -239,53 +239,53 @@ adiapp.controller('pjCtrl', function($scope,$http) {
       });
   }
 
-  $scope.tampilListPelanggan = function(){
-    $scope.tampilListPelangganJumlah();
-    $http.get(link_database+'list-pelanggan.php?cari='+$scope.txtcaripelanggan).success(function(data,status,header,config){
+  $scope.tampilListsuplier = function(){
+    $scope.tampilListsuplierJumlah();
+    $http.get(link_database+'list-suplier.php?cari='+$scope.txtcarisuplier).success(function(data,status,header,config){
         $scope.animation_image=true;
-        $scope.lscaripelanggan=data;
+        $scope.lscarisuplier=data;
         $scope.animation_image=false;
       });
   }  
 
-  $scope.tampilListPelanggan();
+  $scope.tampilListsuplier();
 
-  $scope.ambilListCariPelanggan= function(kode){
-    $http.post(link_database+"list-pelanggan-cud.php",{
+  $scope.ambilListCarisuplier= function(kode){
+    $http.post(link_database+"list-suplier-cud.php",{
       'cud':'detail',
-      'idpelanggan':kode
+      'idsuplier':kode
     }).success(function(data, status, headers, config){
       $scope.cud=data;
-      $scope.txtidpelanggan=$scope.cud[0].idpelanggan;
-      $scope.txtpelanggan=$scope.cud[0].nama;
+      $scope.txtidsuplier=$scope.cud[0].idsuplier;
+      $scope.txtsuplier=$scope.cud[0].nama;
      },function(error){
       alert('Gagal Menyimpan!');
     });
   }
 
 
-  $scope.tampilIsiPJ = function(kode){
-        $http.post(link_database+"list-pj_detail-cud.php",{
+  $scope.tampilIsiPB = function(kode){
+        $http.post(link_database+"list-pb_detail-cud.php",{
           'cud':'lain',
-          'nopj':kode
+          'nopb':kode
         }).success(function(data, status, headers, config){
-        $scope.animation_image2=false;          
-        $scope.listisipj=data; 
-        $scope.tampilTotal(kode);
+          $scope.animation_image2=false;          
+          $scope.listisipb=data; 
+          $scope.tampilTotal(kode);
         },function(error){
             alert("Sorry! gag ada data!<br>Kode Error: "+error);
         });   
   }
 
-  $scope.hapusIsiPJ = function(kode){
+  $scope.hapusIsiPB = function(kode){
     var r = confirm ("Yakin akan dihapus");
     if (r==false){return;}
-    $http.post(link_database+"list-pj_detail-cud.php",{
+    $http.post(link_database+"list-pb_detail-cud.php",{
       'cud':'hapus',
-      'nopj':$scope.txtnopj,
+      'nopb':$scope.txtnopb,
       'produk_id':kode
     }).success(function(data, status, headers, config){
-      $scope.tampilIsiPJ($scope.txtnopj);
+      $scope.tampilIsiPB($scope.txtnopb);
       $scope.tampilData();
     },function(error){
       alert('Hapus Gagal');
@@ -326,23 +326,24 @@ adiapp.controller('pjCtrl', function($scope,$http) {
   $scope.printDetail = function(kode){
     $scope.cetakPO=true;
     $scope.TmbSimpan=true;
-    $http.post(link_database+"list-pj-cud.php",{
+    $http.post(link_database+"list-pb-cud.php",{
       'cud':'detail',
-      'nopj':kode
+      'nopb':kode
     }).success(function(data, status, headers, config){
+      alert(data);
       $scope.cud=data;
-      $scope.txtnopj=$scope.cud[0].nopj;
+      $scope.txtnopb=$scope.cud[0].nopb;
       $scope.txttgl=$scope.cud[0].tgl;
       $scope.txtnoref=$scope.cud[0].noref;
-      $scope.txtpelanggan=$scope.cud[0].pelanggan;
+      $scope.txtsuplier=$scope.cud[0].suplier;
       $scope.total=$scope.cud[0].total;
-      $scope.listisipj =[]
-      $http.post(link_database+"list-pj_detail-cud.php",{
+      $scope.listisipb =[]
+      $http.post(link_database+"list-pb_detail-cud.php",{
           'cud':'lain',
-          'nopj':kode
+          'nopb':kode
         }).success(function(data, status, headers, config){
           $scope.animation_image2=false;          
-          $scope.listisipj=data;    
+          $scope.listisipb=data;    
           $scope.cetakPO=false;    
         });         
      },function(error){
@@ -368,7 +369,7 @@ adiapp.controller('pjCtrl', function($scope,$http) {
     //Posisi scroll mentok ke bawah
       if((posisiS+layarS) >= (tinggiS-1)){
         //panggil fungsi tampilProduk dari angular
-        angular.element(document.getElementById('pjCtrl')).scope().tampilProduk();
+        angular.element(document.getElementById('pbCtrl')).scope().tampilProduk();
       }
   }
 

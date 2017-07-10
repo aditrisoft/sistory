@@ -1,0 +1,33 @@
+<?php
+
+include "db.php";
+
+header('Access-Control-Allow-Origin: *'); 
+header('Access-Control-Allow-Headers: Origin, Content-Type'); 
+header('Access-Control-Allow-Methods: pjST, GET, OPTIONS, PUT, DELETE');
+
+if (isset($_GET['cari'])){
+	$filterx=$_GET['cari'];
+}else{
+	$filterx="";
+}
+
+
+$tglawal=$_GET['tglawal'];
+$tglakhir=$_GET['tglakhir'];
+
+#isikan dengan string tglawal dan tglakhir
+$tglx=" where (date(pb.tgl) BETWEEN '$tglawal' AND '$tglakhir')";
+
+#jika hanya mencari jumlah
+if (isset($_GET['jum'])){
+	$AdiSql = mysql_query("select * from pb ".$tglx."");
+}else{
+	$AdiSql = mysql_query("select date(tgl) as tgl, tgl as waktu, nopb, idsuplier, (select nama from suplier where idsuplier=pb.idsuplier) as suplier, noref, (select sum(harga*qty) from pb_detail where nopb=pb.nopb) as total, statustr from pb ".$tglx." order by tgl,waktu_real desc");
+}
+	$rows = array();
+	while($r = mysql_fetch_array($AdiSql)) {
+	    $rows[] = $r;
+	}
+	print json_encode($rows);
+?>

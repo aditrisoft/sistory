@@ -30,7 +30,7 @@ if($cud=='input'){
 	if(isset($data->idpelanggan)){
 		$idpelanggan = $data->idpelanggan;			
 	}else{
-		$idpelanggan = '';
+		$idpelanggan = '000';
 	}	
 
 	if($kode!=''){
@@ -75,9 +75,17 @@ if($cud=='input'){
 	}else{
 		$noperk = '';
 	}	
-	$pelanggan=$data->pelanggan;
+	if(isset($data->pelanggan)){
+		$pelanggan=$data->pelanggan;
+	}else{
+		$pelanggan = '000';
+	}		
 	$keterangan='Penjualan ke '.$pelanggan;		
-	$jmlbayar=$data->jmlbayar;
+	if(isset($data->jmlbayar)){
+		$jmlbayar=$data->jmlbayar;
+	}else{
+		$jmlbayar = 0;
+	}		
 	$kurangbayar=$data->kurangbayar;
 
 	mysql_query("update pj set nopj='$nopj', noref='$noref', tgl='$tgl', usernama='$usernama', idpelanggan='$idpelanggan', cara_bayar='$cara_bayar', jmlbayar='$jmlbayar', kurangbayar='$kurangbayar', statustr='0' where nopj='$kode'");
@@ -187,6 +195,17 @@ if($cud=='input'){
 
 	mysql_query("delete from pj where nopj='$kode'");
 	mysql_query("delete from pj_detail where nopj='$kode'");
+	#counter fifo
+		$AdiSql=mysql_query("select * from stokkeluar where notrans='$kode'");
+		while($row=mysql_fetch_array($AdiSql)){
+			$qty_keluar=$row['qty_keluar'];
+			$id_masuk=$row['id_masuk'];
+			$produk_id=$row['produk_id'];
+			mysql_query("update stokmasuk set qty_keluar=qty_keluar-$qty_keluar where id=$id_masuk and produk_id='$produk_id'");
+			mysql_query("update stokmasuk set sisa=qty_masuk-qty_keluar where id=$id_masuk and produk_id='$produk_id'");
+			mysql_query("delete from stokkeluar where notrans='$kode'");
+		}
+
 
 
 }else{

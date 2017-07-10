@@ -106,6 +106,7 @@
                           <li><a class="" href="#po">Buat PO</a></li>
                           <li><a class="" href="#vpo">Validasi PO</a></li>
                           <li><a class="" href="#do">Penerimaan DO</a></li>
+                          <li><a class="" href="#pb">Pembelian Langsung</a></li>
                           <li><a class="" href="#hutang">Hutang</a></li>
                           <li><a class="" href="#lab01">Rekap Pembelian</a></li>
                           <li><a class="" href="#lab02">Detail Pembelian</a></li>
@@ -385,7 +386,10 @@
               templateUrl : "cont_pj.html",
               controller : "pjCtrl"
           })          
-
+          .when("/pb", {
+              templateUrl : "cont_pb.html",
+              controller : "pbCtrl"
+          })   
 
           .when("/lab01", {
               templateUrl : "lab01.html",
@@ -490,6 +494,7 @@ if (localStorage.getItem('bagiansisak')=='maintain'){
 <script src="js-db/hutangCtrl.js"></script>
 <script src="js-db/piutangCtrl.js"></script>
 <script src="js-db/pjCtrl.js"></script>
+<script src="js-db/pbCtrl.js"></script>
 
 
 

@@ -1,0 +1,66 @@
+DELIMITER |
+
+CREATE PROCEDURE fifoHPP(vproduk_id varchar (30), vtglcek datetime, vqty_keluar double, vref varchar(30), vnotrans varchar(30))
+begin
+
+
+
+#variabel cek fifo
+
+set @qtykeluar=vqty_keluar;
+
+
+
+WHILE @qtykeluar>0 DO
+
+
+
+#cek baris pertama dari fifo
+
+set @sisa= (select (qty_masuk-qty_keluar) as sisa from stokmasuk where produk_id=vproduk_id and date(tgl)<=vtglcek and  (qty_masuk-qty_keluar)>0 order by tgl limit 1);
+
+set @id_masuk= (select id from stokmasuk where produk_id=vproduk_id and date(tgl)<=vtglcek and  (qty_masuk-qty_keluar)>0 order by tgl limit 1);
+
+set @hpp= (select hpp from stokmasuk where produk_id=vproduk_id and date(tgl)<=vtglcek and  (qty_masuk-qty_keluar)>0 order by tgl limit 1);
+
+
+
+IF (@sisa>=@qtykeluar) THEN
+
+	update stokmasuk set qty_keluar=qty_keluar+@qtykeluar where id=@id_masuk;
+
+	update stokmasuk set sisa=sisa-@qtykeluar where id=@id_masuk;
+
+	#input di stokkelluar
+
+	insert into stokkeluar (tgl, waktu_real, produk_id, ref, qty_keluar, hpp, id_masuk, notrans) values
+
+	(vtglcek, now(), vproduk_id, vref, @qtykeluar, @hpp, @id_masuk, vnotrans);
+
+	set @qtykeluar=0;
+
+ELSE
+
+	set @qtykeluar=@qtykeluar-@sisa;
+
+	update stokmasuk set qty_keluar=qty_keluar+@sisa where id=@id_masuk;
+
+	update stokmasuk set sisa=sisa-@sisa where id=@id_masuk;
+
+	#input di stokkelluar
+
+	insert into stokkeluar (tgl, waktu_real, produk_id, ref, qty_keluar, hpp, id_masuk, notrans) values
+
+	(vtglcek, now(), vproduk_id, vref, @sisa, @hpp, @id_masuk, vnotrans);
+
+END IF;
+
+
+
+END WHILE;
+
+end;
+
+|
+ 
+DELIMITER ;
